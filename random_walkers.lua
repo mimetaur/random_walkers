@@ -1,36 +1,29 @@
 -- Random Walkers
 
-engine.name = "PolyPercPannable"
+engine.name = "RandomWalkerPolyPercPannable"
 
 -------------------------------------------------------------------------------
 -- Constants
 -------------------------------------------------------------------------------
-local RELOAD_LIBS = true
 local DEFAULT_CELL_BRIGHTNESS = 8
 local MIN_BRIGHTNESS = 2
 local MAX_AMP = 0.8
 local MIN_AMP = 0.2
 
 -------------------------------------------------------------------------------
+-- DEPENDENCIES
+-------------------------------------------------------------------------------
+
+local ArcParams = include("arc_params/lib/arc_params")
+
+local json = include("random_walkers/lib/json")
+local World = include("random_walkers/lib/world")
+local Walker = include("random_walkers/lib/walker")
+local WalkerSonar = include("random_walkers/lib/walker_sonar")
+
+-------------------------------------------------------------------------------
 -- Script Local Vars
 -------------------------------------------------------------------------------
-local json = require "agents/lib/json"
-
-local libs = {
-    world_path = "agents/lib/world",
-    walker_path = "agents/lib/walker",
-    walker_sonar_path = "agents/lib/walker_sonar",
-    arc_params = "arc_params/lib/arc_params"
-}
-if RELOAD_LIBS then
-    local reload_libraries = require "agents/lib/reload_libraries"
-    reload_libraries.with_table(libs)
-end
-
-local World = require(libs.world_path)
-local Walker = require(libs.walker_path)
-local WalkerSonar = require(libs.walker_sonar_path)
-local ArcParams = require(libs.arc_params)
 
 -- script vars
 local world = {}
@@ -128,8 +121,6 @@ local function emit(walker_sonar)
     local walker = walker_sonar:get_parent()
     local x, y = walker:position()
     local id = walker:index()
-
-    -- print("Walker #" .. id .. " playing note " .. MusicUtil.note_num_to_name(self.note_, true))
 
     -- calculate the amplitude of the note, based on
     -- its distance to the nearest neighbor

@@ -18,16 +18,7 @@ Walker.DEFAULT_BRIGHTNESS = 12
 -------------------------------------------------------------------------------
 -- DEPENDENCIES
 -------------------------------------------------------------------------------
-local RELOAD_LIBS = true
-
-local libs = {}
-libs.cell_path = "agents/lib/cell"
-if RELOAD_LIBS == true then
-    local reload_libraries = require "agents/lib/reload_libraries"
-    reload_libraries.with_table(libs)
-end
-
-local Cell = require(libs.cell_path)
+local Cell = include("random_walkers/lib/cell")
 
 -------------------------------------------------------------------------------
 -- PRIVATE METHODS
