@@ -21,6 +21,9 @@ local World = include("random_walkers/lib/world")
 local Walker = include("random_walkers/lib/walker")
 local WalkerSonar = include("random_walkers/lib/walker_sonar")
 
+local Billboard = include("billboard/lib/billboard")
+local billboard = Billboard.new()
+
 -------------------------------------------------------------------------------
 -- Script Local Vars
 -------------------------------------------------------------------------------
@@ -208,6 +211,7 @@ function init()
         end,
         action = function(value)
             set_speed(value)
+            billboard:display_param("speed", math.ceil(value))
         end
     }
     params:add {
@@ -218,6 +222,7 @@ function init()
         max = 128,
         default = 4,
         action = function(value)
+            billboard:display_param("num walkers", math.ceil(value))
             change_walkers(value)
         end
     }
@@ -229,6 +234,7 @@ function init()
         max = 180,
         default = 64,
         action = function(value)
+            billboard:display_param("distance threshold", math.ceil(value))
             for i, walker in ipairs(walkers) do
                 if walker and walker.sonar then
                     walker.sonar:set_max_dist(value)
@@ -263,6 +269,9 @@ function init()
         formatter = function(param)
             local rel_pct = math.ceil(param:get("release_mult")) .. "%"
             return rel_pct
+        end,
+        action = function(value)
+            billboard:display_param("release amount", math.ceil(value) .. "%")
         end
     }
 
@@ -288,5 +297,6 @@ end
 function redraw()
     screen.clear()
     world:draw()
+    billboard:draw()
     screen.update()
 end
