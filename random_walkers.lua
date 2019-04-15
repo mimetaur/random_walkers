@@ -266,13 +266,13 @@ function init()
         end
     }
 
-    params:default()
-
-    arc_params:register_at(1, "release_mult")
-    arc_params:register_at(2, "max_dist")
-    arc_params:register_at(3, "num_walkers", 1.0)
-    arc_params:register_at(4, "speed", 1.0)
+    arc_params:register("release_mult", 1.0)
+    arc_params:register("max_dist", 1.0)
+    arc_params:register("num_walkers", 0.1)
+    arc_params:register("speed", 1.0)
     arc_params:add_arc_params()
+
+    params:default()
 
     clock:start(params:get("speed") / 1000, -1)
 end
