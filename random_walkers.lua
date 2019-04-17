@@ -14,7 +14,7 @@ local MIN_AMP = 0.2
 -- DEPENDENCIES
 -------------------------------------------------------------------------------
 
-local ArcParams = include("arc_params/lib/arc_params")
+local Arcify = include("arcify/lib/arcify")
 
 local json = include("random_walkers/lib/json")
 local World = include("random_walkers/lib/world")
@@ -36,11 +36,11 @@ local scale_names = {}
 local notes = {}
 
 -- arc
-local ar = arc.connect()
-local arc_params = ArcParams.new(ar)
+an_arc = arc.connect()
+arcify = Arcify.new(an_arc)
 
-function ar.delta(n, delta)
-    arc_params:update(n, delta)
+function an_arc.delta(n, delta)
+    arcify:update(n, delta)
 end
 
 -- OSC
@@ -275,11 +275,11 @@ function init()
         end
     }
 
-    arc_params:register("release_mult", 1.0)
-    arc_params:register("max_dist", 1.0)
-    arc_params:register("num_walkers", 0.1)
-    arc_params:register("speed", 1.0)
-    arc_params:add_arc_params()
+    arcify:register("release_mult", 1.0)
+    arcify:register("max_dist", 1.0)
+    arcify:register("num_walkers", 0.1)
+    arcify:register("speed", 1.0)
+    arcify:add_arc_params()
 
     params:default()
 
