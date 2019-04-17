@@ -14,12 +14,13 @@ local MIN_AMP = 0.2
 -- DEPENDENCIES
 -------------------------------------------------------------------------------
 
-local Arcify = include("arcify/lib/arcify")
-
 local json = include("random_walkers/lib/json")
 local World = include("random_walkers/lib/world")
 local Walker = include("random_walkers/lib/walker")
 local WalkerSonar = include("random_walkers/lib/walker_sonar")
+
+local Arcify = include("arcify/lib/arcify")
+arcify = Arcify.new()
 
 local Billboard = include("billboard/lib/billboard")
 local billboard = Billboard.new()
@@ -34,14 +35,6 @@ local walkers = {}
 
 local scale_names = {}
 local notes = {}
-
--- arc
-an_arc = arc.connect()
-arcify = Arcify.new(an_arc)
-
-function an_arc.delta(n, delta)
-    arcify:update(n, delta)
-end
 
 -- OSC
 dest = {"192.168.1.12", 10112}
@@ -279,7 +272,7 @@ function init()
     arcify:register("max_dist", 1.0)
     arcify:register("num_walkers", 0.1)
     arcify:register("speed", 1.0)
-    arcify:add_arc_params()
+    arcify:add_params()
 
     params:default()
 
